@@ -1,0 +1,125 @@
+/* ------------------------------------------- */
+/* GLOBAL STYLES (Dark Mode Aesthetic)         */
+/* ------------------------------------------- */
+:root {
+    /* Warna utama */
+    --color-primary: #6366f1; /* Indigo 500 */
+    --color-secondary: #fcd34d; /* Amber 300 / Yellow */
+    /* Background */
+    --bg-dark-main: #111827; /* Gray 900 */
+    --bg-dark-card: #1f2937; /* Gray 800 */
+    --bg-dark-input: #374151; /* Gray 700 */
+    /* Teks */
+    --text-light: #f3f4f6; /* Gray 100 */
+    --text-muted: #9ca3af; /* Gray 400 */
+}
+
+/* Mengatur font default Inter (dari HTML style) */
+body {
+    background-color: var(--bg-dark-main);
+    color: var(--text-light);
+    margin: 0;
+    padding: 0;
+}
+
+/* Memastikan elemen form terlihat baik */
+input[type="text"], input[type="file"] {
+    background-color: var(--bg-dark-input);
+    border: 1px solid #4b5563; /* Gray 600 */
+    color: var(--text-light);
+    padding: 10px;
+    border-radius: 8px;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]::placeholder {
+    color: var(--text-muted);
+}
+
+input[type="text"]:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+/* Tombol Dasar */
+button {
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* ------------------------------------------- */
+/* VIDEO & LANDMARK DISPLAY                    */
+/* ------------------------------------------- */
+
+/* Memastikan canvas dan video menempati ruang yang sama */
+.video-box {
+    position: relative;
+    /* Aspect ratio diatur di Tailwind/HTML, ini hanya untuk memastikan kontainer fleksibel */
+}
+
+#video {
+    /* MediaPipe memproses video asli, jadi kita harus membalik video dan canvas */
+    /* Video feed (diatur di Tailwind class) */
+}
+
+#output {
+    /* Canvas untuk menggambar landmark */
+    /* Canvas juga harus dibalik (diatur di Tailwind class) */
+}
+
+/* ------------------------------------------- */
+/* CONTROL SPECIFIC STYLES                     */
+/* ------------------------------------------- */
+
+/* Status Global */
+#statusContainer {
+    font-size: 0.875rem; /* text-sm */
+}
+
+/* Teks Status */
+#status {
+    font-weight: 500;
+}
+
+/* Area Prediksi Utama */
+.prediction-display {
+    /* Tailwind classes sudah menangani ini */
+}
+
+/* ------------------------------------------- */
+/* WORD SEQUENCER (Kata Terbentuk)             */
+/* ------------------------------------------- */
+
+#wordOutput {
+    /* Tampilan kata yang dikumpulkan */
+    min-height: 48px; /* Ruang minimal */
+    padding: 5px 0;
+    word-wrap: break-word;
+}
+
+/* ------------------------------------------- */
+/* RESPONSIVENESS                              */
+/* ------------------------------------------- */
+
+@media (max-width: 1024px) {
+    /* Pada layar tablet/mobile, kolom video dan kontrol akan menumpuk */
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .video-output-column, .controls {
+        width: 100%;
+        max-width: 640px; /* Batasan maksimum agar tidak terlalu lebar di tablet */
+    }
+}
