@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar - Signtara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="auth.js"></script>
+    <style>
+        /* Impor style LENGKAP dari 'index.html' untuk konsistensi */
+        html {
+            /* --- Light Mode (Default) --- */
+            --bg-gradient: linear-gradient(180deg,#FFF7F2 0%,#F1FBFF 55%,#FFF9F5 100%);
+            --text-primary: #111827;
+            --text-muted: #6b7280;
+            --text-error: #dc2626; /* red-600 */
+            --text-success: #16a34a; /* green-600 */
+            --surface-1: #ffffff;
+            --surface-border: #e5e7eb;
+            --focus-ring-color: rgba(167, 139, 250, 0.5);
+            --btn-predict-bg: linear-gradient(90deg, #e0d3ff, #c9b6ff);
+            --btn-predict-text: #6d28d9;
+            --icon-filter: none;
+            --header-border: rgba(17, 24, 39, 0.05); /* black/5 */
+        }
+        html.dark {
+            /* --- Dark Mode --- */
+            --bg-gradient: linear-gradient(180deg, #1a110e 0%, #0c181f 55%, #191417 100%);
+            --text-primary: #f3f4f6;
+            --text-muted: #9ca3af;
+            --text-error: #f87171; /* red-400 */
+            --text-success: #4ade80; /* green-400 */
+            --surface-1: #1f2937;
+            --surface-border: #4b5563;
+            --focus-ring-color: rgba(196, 181, 253, 0.6);
+            --btn-predict-bg: linear-gradient(90deg, #58458a, #6d55b0);
+            --btn-predict-text: #e0d3ff;
+            --icon-filter: invert(1) brightness(0.95) hue-rotate(180deg);
+            --header-border: rgba(243, 244, 246, 0.05); /* white/5 */
+        }
+        /* Hapus margin/padding default body */
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui;
+            color: var(--text-primary);
+            transition: background .3s ease;
+            margin: 0;
+            padding: 0;
+        }
+        .custom-text-input {
+            background-color: var(--surface-1);
+            border: 1px solid var(--surface-border);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            color: var(--text-primary);
+            transition: border-color .2s ease, box-shadow .2s ease, background-color .3s ease;
+        }
+        .custom-text-input:focus,
+        .custom-text-input:focus-visible {
+            outline: none;
+            border-color: #a78bfa;
+            box-shadow: 0 0 0 3px var(--focus-ring-color);
+        }
+        
+        /* Dekorasi dari index.html */
+        .blob{position:absolute;border-radius:999px;filter:blur(36px);opacity:.85;pointer-events:none}
+        .b-1{width:380px;height:380px;left:-80px;top:-60px;background:radial-gradient(circle at 30% 30%,#FFD7B5,#FFB3C6 40%, rgba(255,179,193,0.12));}
+        .b-2{width:320px;height:320px;right:-60px;top:20px;background:radial-gradient(circle at 70% 20%,#CFF7F8,#9EE7F2 40%, rgba(122,197,255,0.10));}
+        .b-3{width:240px;height:240px;left:18%;bottom:-60px;background:radial-gradient(circle at 40% 50%,#EAD9FF,#D6B8FF 30%, rgba(230,211,255,0.09));}
+        html.dark .blob { opacity: .65; filter: blur(48px); }
+
+        .sketch-line{position:absolute;border-radius:14px;border:2px dashed rgba(16,24,40,0.06); pointer-events:none;}
+        html.dark .sketch-line { border: 2px dashed rgba(255,255,255,0.06); }
+
+        /* Animasi */
+        .fade-in{opacity:0;transform:translateY(10px);transition:opacity .45s ease, transform .45s ease}
+        .fade-in.show{opacity:1;transform:none}
+        .float-slow{animation:float 6s ease-in-out infinite}
+        @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+        
+        /* Tombol */
+        .btn-raise{transition:transform .16s cubic-bezier(.2,.9,.2,1), box-shadow .16s, background .3s ease, color .3s ease}
+        .btn-raise:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(16,24,40,0.08)}
+        .btn-raise:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+        html.dark .btn-raise:hover{ box-shadow: 0 18px 40px rgba(0,0,0,0.25); }
+        
+        /* Status Teks */
+        .status-error { color: var(--text-error); }
+        .status-success { color: var(--text-success); }
+        
+        /* Latar Grid Halus (FIXED) */
+        .subtle-grid-bg {
+            background-image: radial-gradient(circle at 1px 1px, var(--header-border) 1px, transparent 0), var(--bg-gradient);
+            background-size: 24px 24px, auto;
+        }
+    </style>
+</head>
+<body class="min-h-screen relative overflow-hidden subtle-grid-bg">
+
+    <div class="blob b-1 float-slow"></div>
+    <div class="blob b-2 float-slow" style="animation-delay:.6s"></div>
+    <div class="blob b-3 float-slow" style="animation-delay:1s"></div>
+    <div class="sketch-line" style="width:120px;height:60px;top:120px;left:80px;transform:rotate(-8deg);opacity:.9"></div>
+    <div class="sketch-line" style="width:100px;height:70px;bottom:100px;right:15%;transform:rotate(12deg);opacity:.7"></div>
+    <div class="sketch-line" style="width:200px;height:100px;top:40%;left:25%;transform:rotate(8deg);opacity:.5"></div>
+
+    <div class="absolute top-6 right-6 z-20">
+        <button id="darkModeToggle" class="btn-raise p-3 rounded-xl" title="Toggle Dark Mode" style="background: var(--surface-1);" aria-label="Ganti Tema (Gelap/Terang)">
+            <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/moon.svg" class="w-5 h-5" alt="toggle theme" style="filter: var(--icon-filter)">
+        </button>
+    </div>
+
+    <div class="min-h-screen grid grid-cols-1 lg:grid-cols-5 relative z-10">
+        
+        <main class="lg:col-span-2 flex items-center justify-center p-12">
+            <div class="w-full max-w-md">
+                <div class="card p-8 rounded-2xl shadow-xl fade-in relative overflow-hidden" style="background: var(--surface-1);">
+                    <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/user-plus.svg" class="absolute -right-5 -top-3 w-32 h-32 opacity-10" style="filter: var(--icon-filter)" aria-hidden="true">
+
+                    <div class="relative z-10">
+                        <div class="mb-6">
+                            <h1 class="text-4xl font-extrabold">Buat Akun Baru</h1>
+                            <p class="mt-2 text-sm" style="color: var(--text-muted);">
+                                Sudah punya akun? 
+                                <a href="login.html" class="font-bold" style="color: var(--btn-predict-text);">Login di sini</a>
+                            </p>
+                        </div>
+
+                        <form id="registerForm" class="space-y-4">
+                            <div>
+                                <label for="email" class="block text-sm font-bold mb-2">Email</label>
+                                <input type="email" id="email" name="email" class="custom-text-input" required>
+                            </div>
+                            <div>
+                                <label for="username" class="block text-sm font-bold mb-2">Username</label>
+                                <input type="text" id="username" name="username" class="custom-text-input" required>
+                            </div>
+                            <div>
+                                <label for="password" class="block text-sm font-bold mb-2">Password</label>
+                                <input type="password" id="password" name="password" class="custom-text-input" required>
+                            </div>
+
+                            <div id="message" class="text-sm hidden"></div>
+
+                            <button type="submit" id="submitButton" class="w-full text-white font-bold py-3 rounded-xl btn-raise" style="background: var(--btn-predict-bg); color: var(--btn-predict-text);">
+                                Daftar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="hidden lg:flex lg:col-span-3 items-center justify-center p-12 relative overflow-hidden">
+            
+            <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/sparkles.svg" class="w-16 h-16 absolute top-24 right-24 text-purple-300 opacity-80 float-slow fade-in" style="animation-delay: 0.8s; filter: var(--icon-filter)">
+            <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/cpu.svg" class="w-20 h-20 absolute bottom-32 right-32 text-blue-300 opacity-60 float-slow fade-in" style="animation-delay: 0.5s; filter: var(--icon-filter)">
+            
+            <div class="absolute w-80 h-80 bg-white/10 dark:bg-gray-800/20 rounded-full blur-2xl opacity-60"></div>
+
+            <div class="text-center relative fade-in" style="transition-delay: 0.2s">
+                <img src="logo.png" alt="Signtara Logo" class="w-40 h-40 mx-auto rounded-3xl mb-6 shadow-2xl">
+                <h1 class="text-7xl font-extrabold" style="color: var(--text-primary);">Signtara</h1>
+                <p class="text-2xl mt-4" style="color: var(--text-muted);">
+                    Deteksi Bahasa Isyarat BISINDO Realtime
+                </p>
+                <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/hand.svg" class="w-24 h-24 absolute bottom-0 -left-16 text-pink-300 opacity-70 float-slow fade-in" style="animation-delay: 1s; filter: var(--icon-filter)">
+            </div>
+        </aside>
+
+    </div>
+
+    <script>
+        // --- SCRIPT DARK MODE ---
+        (function() {
+            const html = document.documentElement;
+            const toggleButton = document.getElementById('darkModeToggle');
+            const toggleIcon = toggleButton.querySelector('img');
+            const iconMoon = "https://cdn.jsdelivr.net/npm/lucide-static/icons/moon.svg";
+            const iconSun = "https://cdn.jsdelivr.net/npm/lucide-static/icons/sun.svg";
+
+            function setTheme(theme) {
+                if (theme === 'dark') {
+                    html.classList.add('dark');
+                    toggleIcon.src = iconSun;
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    html.classList.remove('dark');
+                    toggleIcon.src = iconMoon;
+                    localStorage.setItem('theme', 'light');
+                }
+            }
+            
+            toggleButton.addEventListener('click', () => {
+                const isDark = html.classList.contains('dark');
+                setTheme(isDark ? 'light' : 'dark');
+            });
+            
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme) { setTheme(savedTheme); } 
+            else if (prefersDark) { setTheme('dark'); } 
+            else { setTheme('light'); }
+        })();
+        // --- END SCRIPT DARK MODE ---
+
+
+        // --- SCRIPT FADE-IN ANIMATION ---
+        document.querySelectorAll('.fade-in').forEach(el=>{ setTimeout(()=>el.classList.add('show'),50); });
+        
+        
+        // --- SCRIPT REGISTER ---
+        if (isLoggedIn()) {
+            window.location.href = 'index.html';
+        }
+
+        const registerForm = document.getElementById('registerForm');
+        const message = document.getElementById('message');
+        const submitButton = document.getElementById('submitButton');
+        const API_BASE = "http://127.0.0.1:5000"; 
+
+        registerForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            message.classList.add('hidden');
+            submitButton.disabled = true;
+            submitButton.textContent = 'Memproses...';
+
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, username, password })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Terjadi kesalahan');
+                }
+
+                // --- SUKSES ---
+                message.textContent = data.message + ". Mengarahkan ke login...";
+                // Gunakan kelas style baru
+                message.className = 'text-sm status-success'; 
+                message.classList.remove('hidden');
+
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+
+            } catch (error) {
+                message.textContent = `Error: ${error.message}`;
+                // Gunakan kelas style baru
+                message.className = 'text-sm status-error';
+                message.classList.remove('hidden');
+                submitButton.disabled = false;
+                submitButton.textContent = 'Daftar';
+            }
+        });
+    </script>
+</body>
+</html>

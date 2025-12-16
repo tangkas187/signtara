@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id"> 
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Langganan Premium - Signtara</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="auth.js"></script>
+  <script>
+    // Lindungi halaman ini.
+    protectPage(); 
+  </script>
+  <style>
+    /* === SALIN SELURUH BLOK STYLE DARI index.html FINAL ANDA DI SINI === */
+    /* Pastikan semua variabel (--bg-gradient, --text-primary, dll.) dan class (.blob, .card, .btn-raise, dll.) ada di sini */
+    html {
+      /* --- Light Mode (Default) --- */
+      --bg-gradient: linear-gradient(180deg,#FFF7F2 0%,#F1FBFF 55%,#FFF9F5 100%);
+      --text-primary: #111827; --text-muted: #6b7280; --text-success: #16a34a; --text-error: #dc2626;
+      --shadow-soft: 0 10px 30px rgba(16,24,40,0.08); --header-border: rgba(17, 24, 39, 0.05);
+      --focus-ring-color: rgba(167, 139, 250, 0.5);
+      --surface-1: #ffffff; --surface-2: linear-gradient(90deg,#fffdf9,#fff7f2); --surface-3: linear-gradient(90deg,#FFF8F2,#FFF3EA);
+      --surface-4: linear-gradient(90deg,#FFF6EA,#FFF1F0); --surface-5: linear-gradient(90deg,#F6F3FF,#F1F7FF); --surface-6: linear-gradient(90deg,#FFF9F5,#FFF6F8);
+      --surface-7: linear-gradient(90deg, #ffe0e0, #ffc9c9); --surface-8: linear-gradient(90deg, #fff3e6, #ffe9d6); --surface-9: linear-gradient(90deg, #f3f4f6, #e5e7eb);
+      --surface-inset: linear-gradient(to bottom right, #f9fafb, #ffffff); --surface-border: #e5e7eb;
+      --pill-core-bg: linear-gradient(90deg,#FFE6C9,#FFD1DF); --pill-live-bg: linear-gradient(90deg,#FFF2E6,#FFE5D1); --pill-live-text: #B95231;
+      --btn-mode-1-bg: linear-gradient(90deg,#FFF7E6,#FFF3E6); --btn-mode-2-bg: linear-gradient(90deg,#E6FCFF,#D9F7FF); --btn-mode-3-bg: linear-gradient(90deg,#F1E8FF,#E9DEFF);
+      --btn-add-bg: linear-gradient(90deg, #d3f3ee, #b6e4de); --btn-add-text: #007a67; --btn-add-icon-filter: invert(30%) sepia(90%) saturate(600%) hue-rotate(130deg) brightness(90%) contrast(90%);
+      --btn-del-bg: linear-gradient(90deg, #ffe0e0, #ffc9c9); --btn-del-text: #cc2525; --btn-del-icon-filter: invert(15%) sepia(90%) saturate(6000%) hue-rotate(330deg) brightness(80%) contrast(100%);
+      --btn-file-bg: linear-gradient(90deg, #F1E8FF, #D6B8FF); --btn-file-text: #6d28d9;
+      --btn-predict-bg: linear-gradient(90deg, #e0d3ff, #c9b6ff); --btn-predict-text: #6d28d9; --btn-predict-icon-filter: invert(20%) sepia(80%) saturate(2000%) hue-rotate(240deg) brightness(80%) contrast(100%);
+      --btn-knn-add-bg: linear-gradient(90deg, #fef3c7, #fde68a); --btn-knn-add-text: #92400e; --btn-knn-train-bg: linear-gradient(90deg, #fed7aa, #fdbf8b); --btn-knn-train-text: #9a3412;
+      --icon-filter: none;
+    }
+    html.dark {
+      /* --- Dark Mode --- */
+      --bg-gradient: linear-gradient(180deg, #1a110e 0%, #0c181f 55%, #191417 100%);
+      --text-primary: #f3f4f6; --text-muted: #9ca3af; --text-success: #4ade80; --text-error: #f87171;
+      --shadow-soft: 0 10px 30px rgba(0,0,0,0.25); --header-border: rgba(243, 244, 246, 0.05);
+      --focus-ring-color: rgba(196, 181, 253, 0.6);
+      --surface-1: #1f2937; --surface-2: linear-gradient(90deg, #2a231f, #2f272a); --surface-3: linear-gradient(90deg, #2a231f, #2f272a);
+      --surface-4: linear-gradient(90deg, #312623, #2f272a); --surface-5: linear-gradient(90deg, #2a2633, #2a2d38); --surface-6: linear-gradient(90deg, #2c2725, #2f272a);
+      --surface-7: linear-gradient(90deg, #402323, #4d2a2a); --surface-8: linear-gradient(90deg, #4d3827, #4d3a27); --surface-9: linear-gradient(90deg, #374151, #4b5563);
+      --surface-inset: linear-gradient(to bottom right, #374151, #1f2937); --surface-border: #4b5563;
+      --pill-core-bg: linear-gradient(90deg,#4d3c33,#4d3238); --pill-live-bg: linear-gradient(90deg,#452f1e,#4d3238); --pill-live-text: #FFD1DF;
+      --btn-mode-1-bg: linear-gradient(90deg,#42372b,#423a2b); --btn-mode-2-bg: linear-gradient(90deg,#2b4042,#2b3a42); --btn-mode-3-bg: linear-gradient(90deg,#3a3147,#3e374c);
+      --btn-add-bg: linear-gradient(90deg, #104a40, #16695c); --btn-add-text: #a7f3d0; --btn-add-icon-filter: invert(90%) sepia(20%) saturate(1000%) hue-rotate(80deg) brightness(100%) contrast(100%);
+      --btn-del-bg: linear-gradient(90deg, #5c1a1a, #7d2a2a); --btn-del-text: #fecaca; --btn-del-icon-filter: invert(90%) sepia(20%) saturate(1000%) hue-rotate(300deg) brightness(100%) contrast(100%);
+      --btn-file-bg: linear-gradient(90deg, #4c3c6e, #5a4a82); --btn-file-text: #e0d3ff;
+      --btn-predict-bg: linear-gradient(90deg, #58458a, #6d55b0); --btn-predict-text: #e0d3ff; --btn-predict-icon-filter: invert(90%) sepia(20%) saturate(1000%) hue-rotate(200deg) brightness(100%) contrast(100%);
+      --btn-knn-add-bg: linear-gradient(90deg, #5c451a, #7d5a2a); --btn-knn-add-text: #fef3c7; --btn-knn-train-bg: linear-gradient(90deg, #7c3a0a, #9a3412); --btn-knn-train-text: #fed7aa;
+      --icon-filter: invert(1) brightness(0.95) hue-rotate(180deg);
+    }
+    /* === BASE STYLES & UTILITIES === */
+    :root{ --soft-shadow: var(--shadow-soft); }
+    html,body{height:100%;}
+    /* PERBAIKAN: Hapus background dari body */
+    body{ font-family:'Plus Jakarta Sans',system-ui; margin:0; padding:36px; color: var(--text-primary); transition: background .3s ease; }
+    .blob{position:absolute;border-radius:999px;filter:blur(36px);opacity:.85;pointer-events:none}
+    .b-1{width:380px;height:380px;left:-80px;top:-60px;background:radial-gradient(circle at 30% 30%,#FFD7B5,#FFB3C6 40%, rgba(255,179,193,0.12));}
+    .b-2{width:320px;height:320px;right:-60px;top:20px;background:radial-gradient(circle at 70% 20%,#CFF7F8,#9EE7F2 40%, rgba(122,197,255,0.10));}
+    .b-3{width:240px;height:240px;left:18%;bottom:-60px;background:radial-gradient(circle at 40% 50%,#EAD9FF,#D6B8FF 30%, rgba(230,211,255,0.09));}
+    html.dark .blob { opacity: .65; filter: blur(48px); }
+    .sketch-line{position:absolute;border-radius:14px;border:2px dashed rgba(16,24,40,0.06);pointer-events:none;}
+    html.dark .sketch-line { border: 2px dashed rgba(255,255,255,0.06); }
+    .card{border-radius:20px;box-shadow:var(--soft-shadow);overflow:hidden; transition: background .3s ease, box-shadow .3s ease;}
+    .float-slow{animation:float 6s ease-in-out infinite} @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    .spin-slow { animation: spin 3s linear infinite; }
+    .muted{color: var(--text-muted)} .pill{padding:.36rem .75rem;border-radius:999px;font-weight:700}
+    .fade-in{opacity:0;transform:translateY(10px);transition:opacity .45s ease, transform .45s ease} .fade-in.show{opacity:1;transform:none}
+    .btn-raise{transition:transform .16s cubic-bezier(.2,.9,.2,1), box-shadow .16s, background .3s ease, color .3s ease}
+    .btn-raise:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(16,24,40,0.08)}
+    .btn-raise:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+    html.dark .btn-raise:hover{ box-shadow: 0 18px 40px rgba(0,0,0,0.25); }
+    .ripple{position:absolute;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+    .card-interactive{transition:transform .22s cubic-bezier(.2,.9,.2,1), box-shadow .22s, background .3s ease;}
+    .card-interactive:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(16,24,40,0.1);}
+    html.dark .card-interactive:hover { box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+    .status-info { color: var(--text-muted); } .status-success { color: var(--text-success); } .status-error { color: var(--text-error); }
+    /* PERBAIKAN: Gabungkan background grid dan gradient di sini */
+    .subtle-grid-bg {
+        background-image: radial-gradient(circle at 1px 1px, var(--header-border) 1px, transparent 0), var(--bg-gradient);
+        background-size: 24px 24px, auto;
+    }
+    :focus { outline: none; }
+    :is(button, a, .custom-file-input-wrapper, input, .slider):focus-visible { box-shadow: 0 0 0 3px var(--focus-ring-color); border-radius: 0.5rem;}
+  </style>
+</head>
+<body class="subtle-grid-bg"> 
+  <div class="blob b-1 float-slow"></div> <div class="blob b-2 float-slow" style="animation-delay:.6s"></div> <div class="blob b-3 float-slow" style="animation-delay:1s"></div>
+  <div class="sketch-line" style="width:120px;height:60px;top:120px;left:80px;transform:rotate(-8deg);opacity:.9"></div>
+  <div class="sketch-line" style="width:100px;height:70px;bottom:100px;right:15%;transform:rotate(12deg);opacity:.7"></div>
+  <div class="sketch-line" style="width:180px;height:120px;bottom:120px;left:10%;transform:rotate(5deg);opacity:.5"></div>
+
+  <main class="max-w-screen-xl mx-auto relative py-6"> <header class="flex items-center justify-between pb-6 mb-8 relative z-10" style="border-bottom: 1px solid var(--header-border)">
+      <div class="flex items-center gap-4 fade-in">
+        <div class="card card-interactive p-3 glass flex items-center gap-3" style="background: var(--surface-2);">
+          <a href="index.html" aria-label="Kembali ke Aplikasi"> <img src="logo.png" class="w-9 h-9 rounded-lg" alt="Signtara Logo">
+          </a>
+          <div> <div class="text-xl font-extrabold" style="color: var(--text-primary);">Signtara</div> </div>
+        </div>
+        <div class="muted text-sm">Pengaturan Langganan</div>
+      </div>
+      <div class="flex items-center gap-3 fade-in">
+        <button id="darkModeToggle" class="btn-raise p-3 rounded-xl glass" title="Toggle Dark Mode" style="background: var(--surface-1);" aria-label="Ganti Tema (Gelap/Terang)"> <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/moon.svg" class="w-5 h-5" alt="toggle theme" style="filter: var(--icon-filter)"> </button>
+        <button class="btn-raise p-3 rounded-xl glass" title="Help" style="background: var(--surface-1);" aria-label="Bantuan"> <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/info.svg" class="w-5 h-5" alt="help" style="filter: var(--icon-filter)"> </button>
+        <button class="btn-raise p-3 rounded-xl glass" title="Settings" style="background: var(--surface-1);" aria-label="Pengaturan"> <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/settings.svg" class="w-5 h-5" alt="settings" style="filter: var(--icon-filter)"> </button>
+        <button id="logoutButton" class="btn-raise p-3 rounded-xl" title="Logout" style="background: var(--btn-del-bg); color: var(--btn-del-text);" aria-label="Logout"> <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/log-out.svg" class="w-5 h-5" alt="logout" style="filter: var(--btn-del-icon-filter)"> </button>
+      </div>
+    </header>
+
+    <section class="text-center fade-in" style="transition-delay: 0.1s">
+        <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/gem.svg" class="w-16 h-16 mx-auto mb-4 opacity-70" style="filter: var(--icon-filter)">
+        <h1 class="text-4xl lg:text-5xl font-extrabold mb-3" style="color: var(--text-primary)">Tingkatkan ke Signtara Premium</h1>
+        <p class="text-lg max-w-2xl mx-auto mb-10" style="color: var(--text-muted)">
+            Akses deteksi tanpa batas! Akun gratis dibatasi hingga <strong>10 deteksi per hari</strong>.
+            Pilih paket yang sesuai untuk Anda dan nikmati Signtara sepenuhnya.
+        </p>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        
+        <div class="card card-interactive p-6 text-center fade-in" style="background: var(--surface-1); transition-delay: 0.3s">
+            <h2 class="text-2xl font-bold mb-2">Bulanan</h2>
+            <p class="text-4xl font-extrabold mb-4" style="color: var(--btn-predict-text)">
+                Rp 30<span class="text-2xl" style="color: var(--text-muted)">.000</span>
+            </p>
+            <p class="text-sm mb-6" style="color: var(--text-muted)">per bulan</p>
+            <ul class="space-y-2 text-left mb-8 text-sm">
+                <li class="flex items-center gap-2"> <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/check.svg" class="w-5 h-5 text-green-500"> Deteksi Tanpa Batas </li>
+                <li class="flex items-center gap-2"> <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/check.svg" class="w-5 h-5 text-green-500"> Deteksi Foto </li>
+                </ul>
+            <button class="w-full btn-raise py-3 rounded-xl font-bold" style="background: var(--btn-predict-bg); color: var(--btn-predict-text);">
+                Pilih Paket Bulanan
+            </button>
+        </div>
+
+        <div class="card card-interactive p-6 text-center fade-in border-2" style="background: var(--surface-5); border-color: var(--btn-predict-text); transform: translateY(-10px); transition-delay: 0.5s"> <span class="absolute top-0 right-4 -mt-3 bg-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">Populer</span>
+            <h2 class="text-2xl font-bold mb-2">6 Bulan</h2>
+            <p class="text-4xl font-extrabold mb-4" style="color: var(--btn-predict-text)">
+                Rp 200<span class="text-2xl" style="color: var(--text-muted)">.000</span>
+            </p>
+            <p class="text-sm mb-6" style="color: var(--text-muted)">hemat ~10%</p> <ul class="space-y-2 text-left mb-8 text-sm">
+                <li class="flex items-center gap-2"> <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/check.svg" class="w-5 h-5 text-green-500"> Deteksi Tanpa Batas </li>
+                <li class="flex items-center gap-2"> <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/check.svg" class="w-5 h-5 text-green-500"> Deteksi Foto </li>
+                <li class="flex items-center gap-2"> <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/check.svg" class="w-5 h-5 text-green-500"> Akses Fitur Beta </li>
+            </ul>
+            <button class="w-full btn-raise py-3 rounded-xl font-bold" style="background: var(--btn-predict-bg); color: var(--btn-predict-text);">
+                Pilih Paket 6 Bulan
+            </button>
+        </div>
+
+        <div class="card card-interactive p-6 text-center fade-in" style="background: var(--surface-1); transition-delay: 0.7s">
+            <h2 class="text-2xl font-bold mb-2">Tahunan</h2>
+            <p class="text-4xl font-extrabold mb-4" style="color: var(--btn-predict-text)">
+                Rp 1 Juta
+            </p>
+             <p class="text-sm mb-6" style="color: var(--text-muted)">hemat besar!</p> <ul class="space-y-2 text-left mb-8 text-sm">
+                 <li class="flex items-center gap-2"> <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/check.svg" class="w-5 h-5 text-green-500"> Deteksi Tanpa Batas </li>
+                <li class="flex items-center gap-2"> <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/check.svg" class="w-5 h-5 text-green-500"> Deteksi Foto </li>
+                <li class="flex items-center gap-2"> <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/check.svg" class="w-5 h-5 text-green-500"> Akses Fitur Beta </li>
+                <li class="flex items-center gap-2"> <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/check.svg" class="w-5 h-5 text-green-500"> Dukungan Prioritas </li>
+            </ul>
+            <button class="w-full btn-raise py-3 rounded-xl font-bold" style="background: var(--btn-predict-bg); color: var(--btn-predict-text);">
+                Pilih Paket Tahunan
+            </button>
+        </div>
+
+    </section>
+
+    <footer class="mt-12 text-center muted text-sm">
+        Pembayaran diproses melalui gateway pihak ketiga yang aman. Anda dapat membatalkan langganan kapan saja.
+        <br>© 2025 Signtara — Core UI (Vibrant Soft)
+    </footer>
+  </main>
+
+<script>
+    // --- SCRIPT DARK MODE ---
+    (function() {
+        const html = document.documentElement;
+        const toggleButton = document.getElementById('darkModeToggle');
+        const toggleIcon = toggleButton.querySelector('img');
+        const iconMoon = "https://cdn.jsdelivr.net/npm/lucide-static/icons/moon.svg";
+        const iconSun = "https://cdn.jsdelivr.net/npm/lucide-static/icons/sun.svg";
+
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                html.classList.add('dark');
+                toggleIcon.src = iconSun;
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.classList.remove('dark');
+                toggleIcon.src = iconMoon;
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        
+        toggleButton.addEventListener('click', () => {
+            const isDark = html.classList.contains('dark');
+            setTheme(isDark ? 'light' : 'dark');
+        });
+        
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme) { setTheme(savedTheme); } 
+        else if (prefersDark) { setTheme('dark'); } 
+        else { setTheme('light'); }
+    })();
+    // --- END SCRIPT DARK MODE ---
+
+    // --- SCRIPT FADE-IN ANIMATION ---
+    document.querySelectorAll('.fade-in').forEach(el=>{ setTimeout(()=>el.classList.add('show'),50); });
+    
+    // --- SCRIPT LOGOUT ---
+    const logoutButton = document.getElementById("logoutButton");
+    logoutButton.addEventListener('click', () => {
+        // Tampilkan pesan sementara jika mau
+        // showMessage("Anda telah logout.", "info"); 
+        setTimeout(logout, 500); // Panggil logout() dari auth.js
+    });
+    
+    // --- SCRIPT RIPPLE (Optional, tapi konsisten) ---
+    function addRipple(btn){
+      btn.style.position='relative';
+      btn.addEventListener('click', function(e){
+        if (btn.disabled) return;
+        const r=document.createElement('span');
+        r.className='ripple';
+        const rect=btn.getBoundingClientRect();
+        r.style.left=(e.clientX-rect.left)+'px'; r.style.top=(e.clientY-rect.top)+'px';
+        r.style.width=r.style.height='12px';
+        const isDark = document.documentElement.classList.contains('dark');
+        r.style.background = isDark ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)';
+        r.style.opacity='0.95';
+        r.style.transition='width .5s ease,height .5s ease,opacity .5s ease';
+        btn.appendChild(r);
+        requestAnimationFrame(()=>{ r.style.width='260px'; r.style.height='260px'; r.style.opacity='0'; });
+        setTimeout(()=>r.remove(),600);
+      });
+    }
+    document.querySelectorAll('button').forEach(addRipple); // Terapkan ke semua tombol
+
+    // --- Placeholder untuk Logika Pembayaran ---
+    // Tambahkan event listener ke tombol "Pilih Paket" di sini
+    // untuk mengarahkan ke halaman pembayaran atau memicu modal
+    // Contoh:
+    // document.querySelectorAll('.card button').forEach(button => {
+    //     button.addEventListener('click', (e) => {
+    //         const plan = e.target.textContent; // Ambil nama paket
+    //         alert(`Anda memilih ${plan}. Integrasi pembayaran belum dibuat.`);
+    //         // Di sini Anda akan memanggil API backend untuk memulai proses pembayaran
+    //     });
+    // });
+
+</script>
+</body>
+</html>
