@@ -8,10 +8,11 @@ import threading
 from pathlib import Path
 from datetime import datetime
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import numpy as np
 import cv2
+from werkzeug.exceptions import NotFound
 
 # Integrasi model_utils
 from model_utils import load_cnn_model, predict_cnn
@@ -24,6 +25,9 @@ MODELS_DIR = BASE_DIR / "models"
 DATA_DIR = BASE_DIR / "data"
 VIDEOS_DIR = BASE_DIR / "temp_videos"
 LOGS_DIR = BASE_DIR / "logs"
+
+# Frontend directory (sibling folder)
+FRONTEND_DIR = BASE_DIR.parent / "frontend"
 
 LOG_FILE = LOGS_DIR / "server.log"
 
@@ -138,15 +142,65 @@ def preprocess_bgr_image(bgr_img):
 app = Flask(__name__)
 CORS(app)
 
-# Error handler
+# Error handler - Handle 404 gracefully
+@app.errorhandler(404)
+def handle_404(e):
+    """Handle 404 errors without logging as critical errors"""
+    return jsonify({"error": "Not found"}), 404
+
 @app.errorhandler(Exception)
 def handle_error(e):
+    """Handle other errors"""
+    # Skip logging for 404 errors (already handled above)
+    if isinstance(e, NotFound):
+        return jsonify({"error": "Not found"}), 404
+    
     log_event(f"❌ Unhandled error: {e}")
     traceback.print_exc()
     return jsonify({"error": str(e)}), 500
 
+# =========================
+# 🌐 Serve Frontend
+# =========================
 @app.route("/")
 def index():
+    """Serve the main HTML file from frontend folder"""
+    try:
+        if not FRONTEND_DIR.exists():
+            log_event(f"❌ Frontend folder tidak ditemukan: {FRONTEND_DIR}")
+            return jsonify({
+                "error": "Frontend folder tidak ditemukan",
+                "expected_path": str(FRONTEND_DIR),
+                "tip": "Pastikan folder 'frontend' ada di parent directory"
+            }), 404
+        
+        index_path = FRONTEND_DIR / "index.html"
+        if not index_path.exists():
+            log_event(f"❌ index.html tidak ditemukan di: {index_path}")
+            return jsonify({
+                "error": "index.html tidak ditemukan",
+                "expected_path": str(index_path)
+            }), 404
+        
+        return send_from_directory(str(FRONTEND_DIR), 'index.html')
+    except Exception as e:
+        log_event(f"❌ Error serving index.html: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/<path:filename>")
+def serve_static(filename):
+    """Serve static files (CSS, JS, images) from frontend folder"""
+    try:
+        return send_from_directory(str(FRONTEND_DIR), filename)
+    except FileNotFoundError:
+        return jsonify({"error": f"File {filename} tidak ditemukan"}), 404
+
+# =========================
+# 📊 API Status
+# =========================
+@app.route("/api/status")
+def api_status():
+    """API status endpoint"""
     classes = []
     if CLASS_NAMES is not None:
         classes = [str(c) for c in CLASS_NAMES]
@@ -156,7 +210,8 @@ def index():
         "cnn_loaded": bool(CNN_MODEL is not None),
         "classes": classes,
         "version": "5.0 CNN-Only",
-        "uptime": float(time.time() - _model_load_time) if _model_load_time else 0
+        "uptime": float(time.time() - _model_load_time) if _model_load_time else 0,
+        "frontend_path": str(FRONTEND_DIR)
     })
 
 # =========================
@@ -302,7 +357,9 @@ def health():
         "status": "healthy",
         "cnn_ready": bool(CNN_MODEL is not None),
         "cnn_classes": cnn_classes,
-        "uptime_seconds": float(time.time() - _model_load_time) if _model_load_time else 0
+        "uptime_seconds": float(time.time() - _model_load_time) if _model_load_time else 0,
+        "frontend_dir": str(FRONTEND_DIR),
+        "frontend_exists": FRONTEND_DIR.exists()
     })
 
 # =========================
@@ -310,6 +367,17 @@ def health():
 # =========================
 if __name__ == "__main__":
     ensure_dirs()
+    
+    # Check frontend directory
+    if FRONTEND_DIR.exists():
+        log_event(f"✅ Frontend folder ditemukan: {FRONTEND_DIR}")
+    else:
+        log_event(f"⚠️ Frontend folder tidak ditemukan: {FRONTEND_DIR}")
+        log_event("💡 Pastikan struktur folder:")
+        log_event("   SIGNTARA/")
+        log_event("   ├── backend/   ← app.py di sini")
+        log_event("   └── frontend/  ← index.html di sini")
+    
     log_event("🚀 SignSpeak Backend v5.0 (CNN-Only) starting...")
     
     # Load models on startup
@@ -322,6 +390,9 @@ if __name__ == "__main__":
     
     try:
         # Run Flask
+        log_event("🌐 Server berjalan di:")
+        log_event("   - http://127.0.0.1:5000")
+        log_event("   - http://localhost:5000")
         app.run(host="0.0.0.0", port=5000, debug=False, threaded=True)
     except KeyboardInterrupt:
         log_event("⚠️ Keyboard interrupt received")
