@@ -1,3 +1,117 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk - Signtara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Pastikan auth.js dipanggil -->
+    <script src="auth.js"></script>
+    
+    <script>
+        // Cek apakah sudah login saat halaman dibuka
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cek manual localStorage jika fungsi auth.js belum siap
+            const token = localStorage.getItem('signtara_jwt_token');
+            if (token) {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</head>
+<body class="flex items-center justify-center min-h-screen relative overflow-hidden">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="glass-card p-8 w-full max-w-md mx-4 relative z-10">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Signtara</h1>
+            <p class="text-gray-500">Masuk untuk mulai berkomunikasi</p>
+        </div>
+
+        <form id="loginForm" class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                <input type="text" id="username" class="input-field" placeholder="Masukkan username" required>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                <input type="password" id="password" class="input-field" placeholder="••••••••" required>
+            </div>
+
+            <div id="errorMessage" class="hidden text-sm text-red-600 bg-red-50 p-3 rounded-lg border border-red-100"></div>
+
+            <button type="submit" id="submitButton" class="btn-primary">Masuk Sekarang</button>
+        </form>
+
+        <p class="mt-6 text-center text-sm text-gray-600">
+            Belum punya akun? 
+            <a href="register.html" class="text-indigo-600 font-bold hover:underline">Daftar di sini</a>
+        </p>
+    </div>
+
+    <script>
+        const API_BASE = "http://127.0.0.1:5000"; 
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const submitButton = document.getElementById('submitButton');
+
+        if (loginForm) {
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                errorMessage.classList.add('hidden');
+                submitButton.disabled = true;
+                submitButton.textContent = 'Memproses...';
+
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                try {
+                    // 1. Kirim Data ke Server
+                    const response = await fetch(`${API_BASE}/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
+
+                    const data = await response.json();
+
+                    // 2. Cek Error dari Server
+                    if (!response.ok) throw new Error(data.error || 'Gagal Login');
+
+                    console.log("Login Berhasil, mencoba menyimpan token...");
+
+                    // 3. SIMPAN TOKEN (PERBAIKAN UTAMA DI SINI)
+                    // Kita tidak lagi bergantung 100% pada fungsi saveToken dari file lain.
+                    // Kita simpan manual agar PASTI BERHASIL.
+                    
+                    const TOKEN_KEY = 'signtara_jwt_token';
+                    
+                    if (data.access_token) {
+                        localStorage.setItem(TOKEN_KEY, data.access_token);
+                        console.log("Token tersimpan di LocalStorage.");
+                        
+                        // Redirect
+                        window.location.href = 'index.html';
+                    } else {
+                        throw new Error("Server tidak mengirimkan token!");
+                    }
+
+                } catch (error) {
+                    console.error(error);
+                    errorMessage.textContent = error.message;
+                    errorMessage.classList.remove('hidden');
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Masuk Sekarang';
+                }
+            });
+        }
+    </script>
+</body>
+=======
 <!DOCTYPE html>
 <html lang="id"> <head>
     <meta charset="UTF-8">
@@ -249,4 +363,5 @@
         });
     </script>
 </body>
+>>>>>>> 9c67073f5b774a3eb292f7627bc7bfd6abe18d66
 </html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Kami - Signtara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="auth.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 overflow-x-hidden font-sans">
+    
+    <!-- Background Animasi -->
+    <div class="blob-cont">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-md shadow-sm" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="home.html" class="flex items-center gap-2 group">
+                <img src="logo.png" alt="Signtara" class="h-10 transition-transform group-hover:scale-110">
+                <span class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Signtara</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8 font-medium text-gray-600">
+                <a href="home.html" class="hover:text-indigo-600 transition">Beranda</a>
+                <a href="permium.html" class="hover:text-indigo-600 transition">Premium</a>
+                <a href="about.html" class="text-indigo-600 font-bold transition">Tentang</a>
+            </div>
+
+            <div id="auth-buttons" class="flex items-center gap-4">
+                <a href="login.html" class="text-indigo-600 font-bold hover:underline">Masuk</a>
+                <a href="register.html" class="px-5 py-2.5 rounded-full bg-gray-900 text-white font-bold hover:bg-gray-800 transition shadow-lg">Daftar</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER SECTION -->
+    <header class="pt-32 pb-16 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <span class="text-indigo-600 font-bold tracking-wider text-sm uppercase mb-2 block">Misi Kami</span>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
+                Menghubungkan Dunia Melalui <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Bahasa Isyarat</span>
+            </h1>
+            <p class="text-lg text-gray-600 leading-relaxed">
+                Signtara lahir dari kepedulian terhadap kesenjangan komunikasi antara Teman Tuli dan Teman Dengar. Kami percaya teknologi harus inklusif dan dapat diakses oleh siapa saja.
+            </p>
+        </div>
+    </header>
+
+    <!-- CERITA KAMI -->
+    <section class="px-6 pb-20 relative z-10">
+        <div class="max-w-5xl mx-auto glass-card p-8 md:p-12 shadow-xl">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Latar Belakang</h2>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Komunikasi adalah hak dasar setiap manusia. Namun, banyak saudara kita penyandang tunarungu yang kesulitan berinteraksi di ruang publik karena minimnya pemahaman masyarakat tentang Bahasa Isyarat Indonesia (BISINDO).
+                    </p>
+                    <p class="text-gray-600 leading-relaxed">
+                        Dengan memanfaatkan kecerdasan buatan (AI) berbasis TensorFlow dan MediaPipe, Signtara menerjemahkan gerakan tangan menjadi teks secara <i>real-time</i>, menciptakan jembatan pemahaman yang instan dan akurat.
+                    </p>
+                </div>
+                <div class="relative">
+                    <div class="absolute inset-0 bg-indigo-600 rounded-2xl transform rotate-3 opacity-20"></div>
+                    <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Diskusi Tim" class="relative rounded-2xl shadow-lg w-full object-cover h-64 md:h-80">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIM PENGEMBANG -->
+    <section class="py-16 px-6 bg-white/50 backdrop-blur-sm">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">Tim Di Balik Layar</h2>
+            <p class="text-gray-500 mb-12">Mahasiswa berdedikasi yang membangun Signtara</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+                
+                <!-- Member 1 -->
+                <div class="glass-card p-6 text-center hover:-translate-y-2 transition duration-300 group">
+                    <div class="w-24 h-24 mx-auto bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full mb-4 p-1 shadow-lg group-hover:scale-110 transition">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ryan" alt="Ryan" class="w-full h-full rounded-full bg-white">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">Ryan Nur Hidayat</h3>
+                    <p class="text-sm text-indigo-600 font-medium mb-2">L200230155</p>
+                    <p class="text-xs text-gray-500">Developer</p>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="glass-card p-6 text-center hover:-translate-y-2 transition duration-300 group">
+                    <div class="w-24 h-24 mx-auto bg-gradient-to-br from-purple-400 to-pink-500 rounded-full mb-4 p-1 shadow-lg group-hover:scale-110 transition">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Daffa" alt="Daffa" class="w-full h-full rounded-full bg-white">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">Daffa Atalla B.S.</h3>
+                    <p class="text-sm text-indigo-600 font-medium mb-2">L200230157</p>
+                    <p class="text-xs text-gray-500">Developer</p>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="glass-card p-6 text-center hover:-translate-y-2 transition duration-300 group">
+                    <div class="w-24 h-24 mx-auto bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full mb-4 p-1 shadow-lg group-hover:scale-110 transition">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Fatoni" alt="Fatoni" class="w-full h-full rounded-full bg-white">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">Fatoni Abdullah L.</h3>
+                    <p class="text-sm text-indigo-600 font-medium mb-2">L200230159</p>
+                    <p class="text-xs text-gray-500">Developer</p>
+                </div>
+
+                <!-- Member 4 -->
+                <div class="glass-card p-6 text-center hover:-translate-y-2 transition duration-300 group lg:col-start-1 lg:col-end-2 lg:ml-auto">
+                    <div class="w-24 h-24 mx-auto bg-gradient-to-br from-orange-400 to-red-500 rounded-full mb-4 p-1 shadow-lg group-hover:scale-110 transition">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Tangkas" alt="Tangkas" class="w-full h-full rounded-full bg-white">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">Tangkas Wahyu N.</h3>
+                    <p class="text-sm text-indigo-600 font-medium mb-2">L200230187</p>
+                    <p class="text-xs text-gray-500">Developer</p>
+                </div>
+
+                <!-- Member 5 -->
+                <div class="glass-card p-6 text-center hover:-translate-y-2 transition duration-300 group lg:col-start-2 lg:col-end-4 lg:mr-auto">
+                    <div class="w-24 h-24 mx-auto bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full mb-4 p-1 shadow-lg group-hover:scale-110 transition">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Fandi" alt="Fandi" class="w-full h-full rounded-full bg-white">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">Fandi Ardiyanto</h3>
+                    <p class="text-sm text-indigo-600 font-medium mb-2">L200230204</p>
+                    <p class="text-xs text-gray-500">Developer</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER (Sama dengan Home) -->
+    <footer class="bg-white border-t border-gray-100 pt-16 pb-8 px-6 mt-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <img src="logo.png" alt="Logo" class="h-8 opacity-80">
+                <span class="font-bold text-gray-700">Signtara</span>
+            </div>
+            <p class="text-gray-500 text-sm">© 2024 Signtara Project. All rights reserved.</p>
+            <div class="flex gap-6 text-gray-400">
+                <a href="#" class="hover:text-indigo-600 transition"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+                <a href="#" class="hover:text-indigo-600 transition"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT INTEGRASI LOGIN -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof isLoggedIn === 'function' && isLoggedIn()) {
+                const authContainer = document.getElementById('auth-buttons');
+                authContainer.innerHTML = `
+                    <span class="hidden md:inline text-sm text-gray-500 mr-2">Halo, Teman!</span>
+                    <a href="index.html" class="px-5 py-2.5 rounded-full bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition shadow-lg flex items-center gap-2">
+                        <span>Dashboard</span>
+                    </a>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

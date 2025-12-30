@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Cek Koneksi Server Signtara</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+        .box { padding: 15px; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 20px; }
+        .success { background-color: #d1fae5; border-color: #10b981; color: #065f46; }
+        .error { background-color: #fee2e2; border-color: #ef4444; color: #991b1b; }
+        button { padding: 10px 20px; cursor: pointer; background: #2563eb; color: white; border: none; border-radius: 5px; font-size: 16px; }
+        button:hover { background: #1d4ed8; }
+        code { background: #f3f4f6; padding: 2px 5px; border-radius: 4px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>🏥 Dokter Koneksi Signtara</h1>
+    <p>Halaman ini akan mengetes apakah browser bisa melihat Server Python Anda.</p>
+
+    <div class="box">
+        <h3>Langkah 1: Pastikan Server Nyala</h3>
+        <p>Apakah terminal VS Code menampilkan tulisan: <code>Running on http://127.0.0.1:5000</code>?</p>
+    </div>
+
+    <button onclick="testConnection()">Tes Koneksi ke Server</button>
+
+    <div id="resultArea" style="margin-top: 20px;"></div>
+
+    <script>
+        async function testConnection() {
+            const resultArea = document.getElementById('resultArea');
+            resultArea.innerHTML = 'Sedang menghubungi http://127.0.0.1:5000...';
+            
+            try {
+                // Coba panggil endpoint health check
+                const response = await fetch('http://127.0.0.1:5000/health', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    resultArea.innerHTML = `
+                        <div class="box success">
+                            <h3>✅ KONEKSI BERHASIL!</h3>
+                            <p>Server merespons: <b>${JSON.stringify(data)}</b></p>
+                            <p><b>Kesimpulan:</b> Masalah bukan pada koneksi. Cek kembali username/password di file <code>users.json</code>.</p>
+                        </div>
+                    `;
+                } else {
+                    resultArea.innerHTML = `
+                        <div class="box error">
+                            <h3>⚠️ KONEKSI TERSAMBUNG TAPI ERROR</h3>
+                            <p>Status: ${response.status}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error(error);
+                resultArea.innerHTML = `
+                    <div class="box error">
+                        <h3>❌ GAGAL MENGHUBUNGI SERVER</h3>
+                        <p><b>Penyebab:</b> Browser memblokir koneksi atau server mati.</p>
+                        <p><b>Detail Error:</b> ${error.message}</p>
+                        <hr>
+                        <h4>Solusi:</h4>
+                        <ol>
+                            <li>Pastikan <code>server.py</code> sedang berjalan.</li>
+                            <li>Jangan jalankan file ini dari Preview Chat (Blob URL). Download dan buka file lokal.</li>
+                            <li>Jika menggunakan Chrome, pastikan tidak ada ekstensi VPN/AdBlock yang memblokir localhost.</li>
+                        </ol>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

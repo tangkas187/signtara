@@ -1,3 +1,96 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar - Signtara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Memuat auth.js -->
+    <script src="auth.js"></script>
+    
+    <!-- Pengecekan Aman: Menunggu script selesai dimuat -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof redirectIfLoggedIn === 'function') {
+                redirectIfLoggedIn();
+            } else {
+                console.warn("Fungsi redirectIfLoggedIn belum tersedia.");
+            }
+        });
+    </script>
+</head>
+<body class="flex items-center justify-center min-h-screen relative overflow-hidden">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="glass-card p-8 w-full max-w-md mx-4 relative z-10">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Buat Akun</h1>
+            <p class="text-gray-500">Bergabung dengan komunitas Signtara</p>
+        </div>
+
+        <form id="registerForm" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input type="email" id="email" class="input-field" required>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                <input type="text" id="username" class="input-field" required>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                <input type="password" id="password" class="input-field" required>
+            </div>
+
+            <div id="message" class="hidden p-3 rounded-lg text-sm"></div>
+
+            <button type="submit" id="submitButton" class="btn-primary mt-4">Daftar Akun</button>
+        </form>
+
+        <p class="mt-6 text-center text-sm text-gray-600">
+            Sudah punya akun? 
+            <a href="login.html" class="text-indigo-600 font-bold hover:underline">Masuk</a>
+        </p>
+    </div>
+
+    <script>
+        const API_BASE = "http://127.0.0.1:5000";
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitButton');
+            const msg = document.getElementById('message');
+            btn.disabled = true; btn.textContent = "Mendaftar...";
+
+            try {
+                const res = await fetch(`${API_BASE}/register`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        email: document.getElementById('email').value,
+                        username: document.getElementById('username').value,
+                        password: document.getElementById('password').value
+                    })
+                });
+                const data = await res.json();
+                if(!res.ok) throw new Error(data.error);
+
+                msg.className = "text-green-700 bg-green-100 p-3 rounded block mb-4";
+                msg.textContent = "Berhasil! Mengalihkan ke login...";
+                setTimeout(() => window.location.href = 'login.html', 1500);
+
+            } catch(err) {
+                msg.className = "text-red-700 bg-red-100 p-3 rounded block mb-4";
+                msg.textContent = err.message;
+                btn.disabled = false; btn.textContent = "Daftar Akun";
+            }
+        });
+    </script>
+</body>
+=======
 <!DOCTYPE html>
 <html lang="id"> <head>
     <meta charset="UTF-8">
@@ -263,4 +356,5 @@
         });
     </script>
 </body>
+>>>>>>> 9c67073f5b774a3eb292f7627bc7bfd6abe18d66
 </html>

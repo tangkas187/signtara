@@ -1,125 +1,90 @@
-/* ------------------------------------------- */
-/* GLOBAL STYLES (Dark Mode Aesthetic)         */
-/* ------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
 :root {
-    /* Warna utama */
-    --color-primary: #6366f1; /* Indigo 500 */
-    --color-secondary: #fcd34d; /* Amber 300 / Yellow */
-    /* Background */
-    --bg-dark-main: #111827; /* Gray 900 */
-    --bg-dark-card: #1f2937; /* Gray 800 */
-    --bg-dark-input: #374151; /* Gray 700 */
-    /* Teks */
-    --text-light: #f3f4f6; /* Gray 100 */
-    --text-muted: #9ca3af; /* Gray 400 */
+    --bg-gradient: linear-gradient(180deg, #FFF7F2 0%, #F1FBFF 55%, #FFF9F5 100%);
+    --text-primary: #111827;
+    --text-muted: #6b7280;
+    --primary-color: #4f46e5; /* Indigo 600 */
+    --surface-1: #ffffff;
+    --surface-border: #e5e7eb;
 }
 
-/* Mengatur font default Inter (dari HTML style) */
 body {
-    background-color: var(--bg-dark-main);
-    color: var(--text-light);
-    margin: 0;
-    padding: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
 }
 
-/* Memastikan elemen form terlihat baik */
-input[type="text"], input[type="file"] {
-    background-color: var(--bg-dark-input);
-    border: 1px solid #4b5563; /* Gray 600 */
-    color: var(--text-light);
-    padding: 10px;
-    border-radius: 8px;
-    transition: border-color 0.2s;
+/* Glassmorphism Card */
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-input[type="text"]::placeholder {
-    color: var(--text-muted);
+/* Input Fields */
+.input-field {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--surface-border);
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
 }
 
-input[type="text"]:focus {
-    border-color: var(--color-primary);
+.input-field:focus {
     outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
-/* Tombol Dasar */
-button {
-    padding: 10px 15px;
-    border-radius: 8px;
+/* Tombol Utama */
+.btn-primary {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    color: white;
     font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+    text-align: center;
 }
 
-button:active {
-    transform: translateY(1px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
 }
 
-/* ------------------------------------------- */
-/* VIDEO & LANDMARK DISPLAY                    */
-/* ------------------------------------------- */
+/* Blob Animasi Background */
+.blob {
+    position: absolute;
+    filter: blur(80px);
+    z-index: -1;
+    opacity: 0.6;
+    animation: blob-bounce 10s infinite ease-in-out;
+}
+.blob-1 { background: #e0e7ff; width: 300px; height: 300px; top: -50px; left: -50px; }
+.blob-2 { background: #fef3c7; width: 250px; height: 250px; bottom: -50px; right: -50px; animation-delay: 2s; }
 
-/* Memastikan canvas dan video menempati ruang yang sama */
-.video-box {
-    position: relative;
-    /* Aspect ratio diatur di Tailwind/HTML, ini hanya untuk memastikan kontainer fleksibel */
+@keyframes blob-bounce {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(20px, -20px) scale(1.1); }
 }
 
-#video {
-    /* MediaPipe memproses video asli, jadi kita harus membalik video dan canvas */
-    /* Video feed (diatur di Tailwind class) */
-}
-
-#output {
-    /* Canvas untuk menggambar landmark */
-    /* Canvas juga harus dibalik (diatur di Tailwind class) */
-}
-
-/* ------------------------------------------- */
-/* CONTROL SPECIFIC STYLES                     */
-/* ------------------------------------------- */
-
-/* Status Global */
-#statusContainer {
-    font-size: 0.875rem; /* text-sm */
-}
-
-/* Teks Status */
-#status {
-    font-weight: 500;
-}
-
-/* Area Prediksi Utama */
-.prediction-display {
-    /* Tailwind classes sudah menangani ini */
-}
-
-/* ------------------------------------------- */
-/* WORD SEQUENCER (Kata Terbentuk)             */
-/* ------------------------------------------- */
-
-#wordOutput {
-    /* Tampilan kata yang dikumpulkan */
-    min-height: 48px; /* Ruang minimal */
-    padding: 5px 0;
-    word-wrap: break-word;
-}
-
-/* ------------------------------------------- */
-/* RESPONSIVENESS                              */
-/* ------------------------------------------- */
-
-@media (max-width: 1024px) {
-    /* Pada layar tablet/mobile, kolom video dan kontrol akan menumpuk */
-    .container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .video-output-column, .controls {
-        width: 100%;
-        max-width: 640px; /* Batasan maksimum agar tidak terlalu lebar di tablet */
-    }
+/* Navbar (Untuk Index & Premium) */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--surface-border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
